@@ -17,6 +17,7 @@ awk '{ sub(/\r$/, ""); print }' "$input_file" | \
 awk 'BEGIN { RS=""; FS="\n"; OFS="," }
 {
   gsub(/ /, "", $0)  # 删除所有空格
+  gsub("／", "/", $0)
 
   for (i=1; i<=NF; i++) {
     gsub(/,/, "\\,", $i);  # 转义逗号
