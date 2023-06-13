@@ -14,11 +14,8 @@ if [ ! -f "$input_file" ]; then
 fi
 
 awk '{ sub(/\r$/, ""); print }' "$input_file" | \
-awk 'BEGIN { RS=""; FS="\n"; OFS="," }
-{
-  gsub(/ /, "", $0)  # 删除所有空格
+awk '{gsub(/ /, "", $0)  # 删除所有空格
   gsub("／", "/", $0)
-  gsub(/,/, "\\,", $0)  # 转义逗号
   gsub("\?", "？", $0)
   gsub("\[", "［", $0)
   gsub("\]", "］", $0)
@@ -26,16 +23,4 @@ awk 'BEGIN { RS=""; FS="\n"; OFS="," }
   gsub("\)", "）", $0)
   gsub("~", "〜", $0)
 
-
-  if (NF == 3) {
-    temp = $1
-    $1 = $2
-    $2 = $3
-    $3 = temp
-  } else if (NF == 2 && prev_last_field != "") {
-    $3 = prev_last_field
-  }
-
-  print
-  prev_last_field = $3
-}'
+  print}'
