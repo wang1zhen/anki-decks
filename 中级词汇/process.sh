@@ -6,7 +6,7 @@ if [ $# -eq 0 ]; then
 fi
 
 input_file="$1"
-
+temp_file="temp-$1"
 
 if [ ! -f "$input_file" ]; then
   echo "Input file '$input_file' does not exist."
@@ -23,4 +23,6 @@ awk '{gsub(/ /, "", $0)  # 删除所有空格
   gsub("\)", "）", $0)
   gsub("~", "〜", $0)
 
-  print}'
+  print}' > $temp_file
+
+mv $temp_file $input_file

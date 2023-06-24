@@ -6,6 +6,7 @@ if [ $# -eq 0 ]; then
 fi
 
 input_file="$1"
+temp_file="temp-$1"
 
 
 if [ ! -f "$input_file" ]; then
@@ -38,4 +39,6 @@ awk 'BEGIN { RS=""; FS="\n"; OFS="," }
 
   print
   prev_last_field = $3
-}'
+}' > $temp_file
+
+mv $temp_file $input_file
