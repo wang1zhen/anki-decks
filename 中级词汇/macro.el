@@ -1,11 +1,28 @@
-(fset 'hiragana
-      (kmacro-lambda-form [?\C-e ?, delete ?\C-e ?, delete ?\C-n ?\C-a] 0 "%d"))
-(general-def "<f11>" #'hiragana)
+(defun my/hiragana nil
+  (interactive)
+  (move-end-of-line nil)
+  (insert ",")
+  (delete-forward-char 1)
+  (move-end-of-line nil)
+  (insert ",")
+  (delete-forward-char 1)
+  (next-line)
+  (move-beginning-of-line nil))
 
-(fset 'katakana
-   (kmacro-lambda-form [?\C-e ?, ?, delete ?\C-n] 0 "%d"))
-(general-def "<f12>" #'katakana)
+(defun my/katakana nil
+  (interactive)
+  (move-end-of-line nil)
+  (insert ",")
+  (delete-forward-char 1)
+  (next-line)
+  (move-beginning-of-line nil))
 
-(fset 'br
-   (kmacro-lambda-form [?\C-e ?< ?b ?r ?> delete] 0 "%d"))
-(general-def "<f9>" #'br)
+(defun my/br nil
+  (interactive)
+  (move-end-of-line nil)
+  (insert "<br>")
+  (delete-forward-char 1))
+
+(global-set-key [f11] 'my/hiragana)
+(global-set-key [f12] 'my/katakana)
+(global-set-key [f9] 'my/br)
