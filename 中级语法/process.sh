@@ -34,7 +34,6 @@ awk 'BEGIN { RS=""; FS="\n"; OFS="," }
   gsub("＋", "+", $0)
   gsub("\+", " + ", $0)
 
-
   if (NF == 3) {
     temp = $1
     $1 = $2
