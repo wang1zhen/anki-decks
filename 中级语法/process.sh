@@ -6,15 +6,16 @@ if [ $# -eq 0 ]; then
 fi
 
 input_file="$1"
-temp_file="temp-$1"
-
+bak_file="$1.bak"
 
 if [ ! -f "$input_file" ]; then
   echo "Input file '$input_file' does not exist."
   exit 1
 fi
 
-awk '{ sub(/\r$/, ""); print }' "$input_file" | \
+cp $input_file $bak_file
+
+awk '{ sub(/\r$/, ""); print }' "$bak_file" | \
 awk 'BEGIN { RS=""; FS="\n"; OFS="," }
 {
   gsub(/ /, "", $0)  # 删除所有空格
@@ -46,6 +47,4 @@ awk 'BEGIN { RS=""; FS="\n"; OFS="," }
 
   print
   prev_last_field = $3
-}' > $temp_file
-
-mv $temp_file $input_file
+}' > $input_file
